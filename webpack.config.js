@@ -12,7 +12,7 @@ export default (devTool) => {
           loader: 'babel-loader',
         },
         {
-          test: require.resolve('./src/js/modules/svg/svg4everybody'),
+          test: require.resolve('./src/js/modules/polyfills/svg4everybody'),
           loader: 'imports-loader?this=>window'
         }
       ]

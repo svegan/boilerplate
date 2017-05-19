@@ -16,4 +16,5 @@ rules:
   new-cap: ["error", {"properties": false}]
 
 globals:
-    require: true
+    require: true,
+    svg4everybody: true

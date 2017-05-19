@@ -20,6 +20,6 @@ const params = {
   ]
 };
 
-export default () => {
+export const initPieChart = () => {
   return new PieChart(canvasContainer, params);
 };

@@ -1,7 +1,7 @@
-import pieChartInit from './modules/pie-chart';
+import {initPieChart} from './modules';
 
 const init = () => {
-  pieChartInit();
+  initPieChart();
 };
 
 document.addEventListener('DOMContentLoaded', init);
