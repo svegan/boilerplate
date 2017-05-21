@@ -62,6 +62,9 @@ const compileStyles = () => {
       revReplace({
         manifest: gulp.src('manifest/svg.json', {allowEmpty: true})
       }),
+      revReplace({
+        manifest: gulp.src('manifest/images.json', {allowEmpty: true})
+      }),
       cssnano(),
       rev()
     )))
@@ -89,7 +92,7 @@ const copyImages = () => {
   .pipe(plumber(plumberMessage('copyImages')))
   .pipe(gulpIf(!isDevelopment, rev()))
   .pipe(gulp.dest('public/img/'))
-  .pipe(gulpIf(!isDevelopment, combine(rev.manifest('assets.json'), gulp.dest('manifest'))));
+  .pipe(gulpIf(!isDevelopment, combine(rev.manifest('images.json'), gulp.dest('manifest'))));
 };
 
 const copySVGs = () => {
@@ -136,11 +139,11 @@ const syncBrowser = (done) => {
 
 const buildQueue = [
   clean,
+  createSVGSprite,
+  copySVGs,
+  copyImages,
   compileJS,
   compileStyles,
-  createSVGSprite,
-  copyImages,
-  copySVGs,
   copyAssets
 ];
 
