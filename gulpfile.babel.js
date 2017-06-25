@@ -6,6 +6,7 @@ import autoprefixer from 'gulp-autoprefixer';
 import svgSprite from 'gulp-svg-sprite';
 import webpack from 'webpack';
 import webpackStream from 'webpack-stream';
+import pug from 'gulp-pug';
 import uglify from 'gulp-uglify';
 import gulpIf from 'gulp-if';
 import rev from 'gulp-rev';
@@ -72,6 +73,12 @@ const compileStyles = () => {
     .pipe(gulpIf(!isDevelopment, combine(rev.manifest('css.json'), gulp.dest('manifest'))));
 };
 
+const compileTemplates = () => {
+  return gulp.src('src/templates/pages/*.pug')
+    .pipe(pug())
+    .pipe(gulp.dest('src/assets'))
+};
+
 const createSVGSprite = () => {
   return gulp.src('src/styles/**/*.svg')
     .pipe(plumber(plumberMessage('createSVGSprite')))
@@ -120,6 +127,7 @@ const copyAssets = () => {
 const watch = (done) => {
   gulp.watch(['src/styles/**/*.scss', 'tmp/styles/sprite.scss'], gulp.series(compileStyles));
   gulp.watch('src/js/**/*.js', gulp.series(compileJS));
+  gulp.watch('src/templates/**/*.pug', gulp.series(compileTemplates));
   gulp.watch('src/styles/**/*.svg', gulp.series(createSVGSprite));
   gulp.watch('src/svg/**/*.svg', gulp.series(copySVGs));
   gulp.watch('src/assets/**/*.*', gulp.series(copyAssets));
@@ -144,6 +152,7 @@ const buildQueue = [
   copyImages,
   compileJS,
   compileStyles,
+  compileTemplates,
   copyAssets
 ];
 
