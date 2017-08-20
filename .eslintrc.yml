@@ -17,4 +17,5 @@ rules:
 
 globals:
     require: true,
-    svg4everybody: true
+    svg4everybody: true,
+    process: true
