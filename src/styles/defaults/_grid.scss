@@ -1,28 +1,23 @@
-.container{
-  padding: 0 0.8rem;
+// .container{
+//   padding: 0 0.8rem;
+//   margin: 0 auto;
+//   max-width: 80%;
+// }
+
+.container {
   margin: 0 auto;
-  max-width: 80%;
-  // min-width: $min-width;
+  width: $container-sm-width;
+  padding: 0 16px;
+
+  @include tabletsm {
+    width: $container-md-width;
+  }
+
+  @include desktop {
+    width: $container-lg-width;
+  }
 }
 
-// .container {
-//   margin: 0 auto;
-//   // max-width: 80%;
-//   min-width: $container-sm-width;
-//   padding: 0 16px;
-//
-//   @include phone {
-//     width: $container-sm-width;
-//   }
-//
-//   @include tablet {
-//     width: $container-md-width;
-//   }
-//
-//   @include desktop {
-//     width: $container-lg-width;
-//   }
-// }
 /**
  * Calculate column size percentage
  */
