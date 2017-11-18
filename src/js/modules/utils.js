@@ -1,3 +1,7 @@
+import {$, $$} from './polyfills';
+
+export {$, $$};
+
 export const uploadForm = (form, success, fail) => {
   const formData = {};
   const elements = Array.prototype.slice.call(form.elements);
@@ -70,3 +74,10 @@ export const colorLuminance = (hex, lum) => {
 
   return rgb;
 };
+
+export const capitalizeFirstLetter = (string) => (
+  string.charAt(0).toUpperCase() + string.slice(1)
+);
+
+export const isMobile = () => document.documentElement.clientWidth <= 768;
+export const isTablet = () => document.documentElement.clientWidth <= 1024;
