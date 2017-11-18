@@ -19,13 +19,32 @@ export const uploadForm = (form, success, fail) => {
     },
     body: requestString
   })
-    .then((response) => {
-      if (response.ok) {
-        return;
-      } else {
-        throw new Error('Answer error');
-      }
-    })
-    .then(success)
-    .catch(fail);
+      .then((response) => {
+        if (response.ok) {
+          return;
+        } else {
+          throw new Error('Answer error');
+        }
+      })
+      .then(success)
+      .catch(fail);
+};
+
+export const throttle = (fn, threshhold = 250, context = null) => {
+  let last;
+  let deferTimer;
+  return () => {
+    let now = +new Date();
+    let args = arguments;
+    if (last && now < last + threshhold) {
+      clearTimeout(deferTimer);
+      deferTimer = setTimeout(function () {
+        last = now;
+        fn.apply(context, args);
+      }, threshhold);
+    } else {
+      last = now;
+      fn.apply(context, args);
+    }
+  };
 };
