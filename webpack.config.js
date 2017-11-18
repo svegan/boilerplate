@@ -16,6 +16,19 @@ export default (devTool) => {
           loader: 'imports-loader?this=>window'
         }
       ]
-    }
+    },
+    /* resolve: {
+      extensions: ['.js', '.json'],
+      alias: {
+        'utils': path.resolve('src/js/modules/utils.js')
+      }
+    },*/
+    /* plugins: [
+      // Provides jQuery for other JS bundled with Webpack
+      new webpack.ProvidePlugin({
+        $: 'jquery',
+        jQuery: 'jquery'
+      })
+    ]*/
   };
 };
