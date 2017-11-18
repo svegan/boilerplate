@@ -25,30 +25,28 @@ const combine = combineS.obj;
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const devTool = isDevelopment ? 'source-map' : false;
 
-const plumberMessage = (title) => {
-  return {
-    errorHandler: notify.onError((err) => ({
-      title,
-      message: err.message
-    }))
-  };
-};
+const plumberMessage = (title) => ({
+  errorHandler: notify.onError((err) => ({
+    title,
+    message: err.message
+  }))
+});
 
 const clean = () => {
   return del(['public', 'manifest', 'src/svg/sprite.svg']);
 };
 
-const compileJS = () => {
-  return gulp.src('src/js/index.js')
+const compileJS = () => (
+  gulp.src('src/js/index.js')
       .pipe(plumber(plumberMessage('compileJS')))
       .pipe(webpackStream(webpackConfig(devTool), webpack))
       .pipe(gulpIf(!isDevelopment, combine(uglify(), rev())))
       .pipe(gulp.dest('public/js/'))
-      .pipe(gulpIf(!isDevelopment, combine(rev.manifest('js.json'), gulp.dest('manifest'))));
-};
+      .pipe(gulpIf(!isDevelopment, combine(rev.manifest('js.json'), gulp.dest('manifest'))))
+);
 
-const compileStyles = () => {
-  return gulp.src('src/styles/common.scss')
+const compileStyles = () => (
+  gulp.src('src/styles/common.scss')
       .pipe(plumber(plumberMessage('compileStyles')))
       .pipe(gulpIf(isDevelopment, sourcemaps.init()))
       .pipe(sass({
@@ -70,17 +68,17 @@ const compileStyles = () => {
           rev()
       )))
       .pipe(gulp.dest('public/styles'))
-      .pipe(gulpIf(!isDevelopment, combine(rev.manifest('css.json'), gulp.dest('manifest'))));
-};
+      .pipe(gulpIf(!isDevelopment, combine(rev.manifest('css.json'), gulp.dest('manifest'))))
+);
 
-const compileTemplates = () => {
-  return gulp.src('src/templates/pages/*.pug')
+const compileTemplates = () => (
+  gulp.src('src/templates/pages/*.pug')
       .pipe(pug())
-      .pipe(gulp.dest('src/assets'));
-};
+      .pipe(gulp.dest('src/assets'))
+);
 
-const createSVGSprite = () => {
-  return gulp.src('src/styles/**/*.svg')
+const createSVGSprite = () => (
+  gulp.src('src/styles/**/*.svg')
       .pipe(plumber(plumberMessage('createSVGSprite')))
       .pipe(svgSprite({
         mode: {
@@ -91,28 +89,28 @@ const createSVGSprite = () => {
           }
         }
       }))
-      .pipe(gulp.dest('src/svg'));
-};
+      .pipe(gulp.dest('src/svg'))
+);
 
-const copyImages = () => {
-  return gulp.src('src/styles/**/*.{png,jpg}', {since: gulp.lastRun(copyImages)})
+const copyImages = () => (
+  gulp.src('src/styles/**/*.{png,jpg}', {since: gulp.lastRun(copyImages)})
       .pipe(plumber(plumberMessage('copyImages')))
       .pipe(gulpIf(!isDevelopment, rev()))
       .pipe(gulp.dest('public/img/'))
-      .pipe(gulpIf(!isDevelopment, combine(rev.manifest('images.json'), gulp.dest('manifest'))));
-};
+      .pipe(gulpIf(!isDevelopment, combine(rev.manifest('images.json'), gulp.dest('manifest'))))
+);
 
-const copySVGs = () => {
-  return gulp.src('src/svg/**/*.svg', {since: gulp.lastRun(copySVGs)})
+const copySVGs = () => (
+  gulp.src('src/svg/**/*.svg', {since: gulp.lastRun(copySVGs)})
       .pipe(plumber(plumberMessage('copySVGs')))
       .pipe(gulpIf(!isDevelopment, rev()))
       .pipe(gulp.dest('public/styles'))
-      .pipe(gulpIf(!isDevelopment, combine(rev.manifest('svg.json'), gulp.dest('manifest'))));
-};
+      .pipe(gulpIf(!isDevelopment, combine(rev.manifest('svg.json'), gulp.dest('manifest'))))
+);
 
-const copyAssets = () => {
-  // return gulp.src('src/assets/**/*.*', {since: gulp.lastRun(copyAssets)}) Don't copy html assets ?
-  return gulp.src('src/assets/**/*.*')
+// return gulp.src('src/assets/**/*.*', {since: gulp.lastRun(copyAssets)}) Don't copy html assets ?
+const copyAssets = () => (
+  gulp.src('src/assets/**/*.*')
       .pipe(gulpIf(!isDevelopment, revReplace({
         manifest: gulp.src('manifest/css.json', {allowEmpty: true})
       })))
@@ -122,8 +120,8 @@ const copyAssets = () => {
       .pipe(gulpIf(!isDevelopment, revReplace({
         manifest: gulp.src('manifest/svg.json', {allowEmpty: true})
       })))
-      .pipe(gulp.dest('public'));
-};
+      .pipe(gulp.dest('public'))
+);
 
 const watch = (done) => {
   gulp.watch(['src/styles/**/*.scss', 'tmp/styles/sprite.scss'], gulp.series(compileStyles));
