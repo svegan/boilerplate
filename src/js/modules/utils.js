@@ -53,6 +53,8 @@ export const throttle = (fn, threshhold = 250, context = null) => {
   };
 };
 
+
+// colorLuminance('#ff0000', 0.3 || -0.3);
 export const colorLuminance = (hex, lum) => {
 
   // validate hex string

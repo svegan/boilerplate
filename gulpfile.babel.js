@@ -74,7 +74,7 @@ const compileStyles = () => (
 const compileTemplates = () => (
   gulp.src('src/templates/pages/*.pug')
       .pipe(pug())
-      .pipe(gulp.dest('src/assets'))
+      .pipe(gulp.dest('public'))
 );
 
 const createSVGSprite = () => (
@@ -124,12 +124,12 @@ const copyAssets = () => (
 );
 
 const watch = (done) => {
-  gulp.watch(['src/styles/**/*.scss', 'tmp/styles/sprite.scss'], gulp.series(compileStyles));
-  gulp.watch('src/js/**/*.js', gulp.series(compileJS));
-  gulp.watch('src/templates/**/*.pug', gulp.series(compileTemplates));
-  gulp.watch('src/styles/**/*.svg', gulp.series(createSVGSprite));
-  gulp.watch('src/svg/**/*.svg', gulp.series(copySVGs));
-  gulp.watch('src/assets/**/*.*', gulp.series(copyAssets));
+  gulp.watch(['src/styles/**/*.scss', 'tmp/styles/sprite.scss'], compileStyles);
+  gulp.watch('src/js/**/*.js', compileJS);
+  gulp.watch('src/templates/pages/*.pug', compileTemplates);
+  gulp.watch('src/styles/**/*.svg', createSVGSprite);
+  gulp.watch('src/svg/**/*.svg', copySVGs);
+  gulp.watch('src/assets/**/*.*', copyAssets);
   done();
 };
 
