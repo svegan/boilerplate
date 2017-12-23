@@ -14,13 +14,11 @@
   "devDependencies": {
     "assets-webpack-plugin": "^3.4.0",
     "babel-core": "^6.26.0",
-    "babel-eslint": "^7.1.1",
+    "babel-eslint": "^8.0.3",
     "babel-loader": "^7.1.2",
     "babel-plugin-rename-umd-globals": "^1.0.0",
     "babel-plugin-transform-class-properties": "^6.23.0",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
-    "babel-preset-es2015": "^6.22.0",
-    "babel-preset-stage-1": "^6.22.0",
     "browser-sync": "^2.18.13",
     "core-js": "^2.5.0",
     "css-mqpacker": "^6.0.1",
@@ -48,17 +46,17 @@
     "gulp-svg-sprite": "^1.3.7",
     "gulp-uglify": "^3.0.0",
     "imports-loader": "^0.7.0",
-    "mocha": "^3.5.0",
+    "mocha": "^4.0.1",
     "normalize-scss": "^7.0.0",
     "postcss-cssnext": "^3.0.2",
     "postcss-discard-duplicates": "^2.0.1",
-    "postcss-import": "^10.0.0",
-    "postcss-nested": "^2.1.2",
+    "postcss-import": "^11.0.0",
+    "postcss-nested": "^3.0.0",
     "postcss-reporter": "^5.0.0",
     "postcss-url": "^7.1.2",
     "stream-combiner2": "^1.1.1",
-    "webpack": "^2.5.1",
-    "webpack-stream": "^3.2.0"
+    "webpack": "^3.10.0",
+    "webpack-stream": "^4.0.0"
   },
   "dependencies": {}
 }
