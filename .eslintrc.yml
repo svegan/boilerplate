@@ -9,6 +9,7 @@ env:
 extends: 'htmlacademy/es6'
 
 rules:
+  indent: [2, "tab"]
   camelcase: [2, { properties: 'never' }]
   quotes: [2, 'single']
   no-trailing-spaces: ["error", { "skipBlankLines": true }]
