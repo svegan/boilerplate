@@ -27,6 +27,8 @@
     "del": "^3.0.0",
     "eslint": "^4.5.0",
     "eslint-config-htmlacademy": "^0.3.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
     "glob": "^7.1.2",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-autoprefixer": "^4.0.0",
@@ -54,6 +56,7 @@
     "postcss-nested": "^3.0.0",
     "postcss-reporter": "^5.0.0",
     "postcss-url": "^7.1.2",
+    "prettier": "^1.10.2",
     "stream-combiner2": "^1.1.1",
     "webpack": "^3.10.0",
     "webpack-stream": "^4.0.0"
