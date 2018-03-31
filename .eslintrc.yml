@@ -1,8 +1,6 @@
 parser: babel-eslint
 
-plugins: [prettier]
-
-extends: ['htmlacademy/es6', 'prettier']
+extends: ['htmlacademy/es6']
 
 env:
   mocha: true
@@ -10,10 +8,7 @@ env:
   browser: true
   node: true
 
-extends: 'htmlacademy/es6'
-
 rules:
-	prettier/prettier: error
   indent: [2, "tab"]
   camelcase: [2, { properties: 'never' }]
   quotes: [2, 'single']
