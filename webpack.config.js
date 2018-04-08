@@ -1,7 +1,12 @@
+import path from 'path';
+
+const mode = process.env.NODE_ENV !== 'production' ? 'development' : 'production';
+
 export default {
 	output: {
 		filename: 'common.js'
 	},
+	mode,
 	devtool: process.env.NODE_ENV !== 'production' ? 'source-map' : false,
 	module: {
 		rules: [
@@ -15,13 +20,13 @@ export default {
 				loader: 'imports-loader?this=>window'
 			}
 		]
-	}
-	/* resolve: {
+	},
+	resolve: {
 		extensions: ['.js', '.json'],
 		alias: {
 			'utils': path.resolve('src/js/modules/utils.js')
 		}
-	},*/
+	},
 	/* plugins: [
 		// Provides jQuery for other JS bundled with Webpack
 		new webpack.ProvidePlugin({
