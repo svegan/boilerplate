@@ -1,3 +1,3 @@
-import {addPolyfills} from './common';
+import { addPolyfills } from './common';
 
-export {addPolyfills};
+export { addPolyfills };

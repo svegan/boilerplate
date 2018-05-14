@@ -9,12 +9,13 @@ env:
   node: true
 
 rules:
-  indent: [2, "tab"]
+  indent: [2, 2]
   camelcase: [2, { properties: 'never' }]
   quotes: [2, 'single']
   no-trailing-spaces: ["error", { "skipBlankLines": true }]
   no-console: 0
   new-cap: ["error", {"properties": false}]
+  object-curly-spacing: 0
 
 globals:
     require: true,
