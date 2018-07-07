@@ -1,6 +1,5 @@
-import { $, $$ } from './polyfills';
-
-export { $, $$ };
+export const $ = document.querySelector.bind(document);
+export const $$ = document.querySelectorAll.bind(document);
 
 export const uploadForm = (form, success, fail) => {
   const formData = {};
@@ -35,25 +34,6 @@ export const uploadForm = (form, success, fail) => {
     })
     .then(success)
     .catch(fail);
-};
-
-export const throttle = (fn, threshhold = 250, context = null) => {
-  let last;
-  let deferTimer;
-  return () => {
-    let now = +new Date();
-    let args = arguments;
-    if (last && now < last + threshhold) {
-      clearTimeout(deferTimer);
-      deferTimer = setTimeout(function() {
-        last = now;
-        fn.apply(context, args);
-      }, threshhold);
-    } else {
-      last = now;
-      fn.apply(context, args);
-    }
-  };
 };
 
 // colorLuminance('#ff0000', 0.3 || -0.3);

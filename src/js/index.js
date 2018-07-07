@@ -1,10 +1,10 @@
-import 'core-js';
-import { addPolyfills } from './modules/polyfills';
-import { initPieChart } from './modules';
+import 'core-js/es6/symbol';
+import 'core-js/es6/promise';
+import 'core-js/web/dom-collections';
+import { addPolyfills } from './modules';
 
 const init = () => {
   addPolyfills();
-  initPieChart();
 };
 
 document.addEventListener('DOMContentLoaded', init);

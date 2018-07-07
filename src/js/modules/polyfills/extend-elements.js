@@ -1,5 +1,7 @@
+import iterator from 'core-js/fn/array/iterator';
+
 const addClosestMethod = () => {
-  (function(ELEMENT) {
+  (function (ELEMENT) {
     ELEMENT.matches =
       ELEMENT.matches ||
       ELEMENT.mozMatchesSelector ||
@@ -23,12 +25,7 @@ const addClosestMethod = () => {
   })(Element.prototype);
 };
 
-const extendHTMLCollection = () => {
-  // Triggering in core.js, or switch on here manually.
-  // HTMLCollection.prototype[Symbol.iterator] = Array.prototype.values;
-};
-
-const extendHTMLElement = () => {
+const addAppendFirstMethod = () => {
   HTMLElement.prototype.appendFirst = function(childNode) {
     if (this.firstChild) {
       this.insertBefore(childNode, this.firstChild);
@@ -38,8 +35,13 @@ const extendHTMLElement = () => {
   };
 };
 
-export const addPolyfills = () => {
+const extendHTMLCollection = () => {
+  // Switched off in core.js
+  HTMLCollection.prototype[Symbol.iterator] = iterator;
+};
+
+export default () => {
   addClosestMethod();
+  addAppendFirstMethod();
   extendHTMLCollection();
-  extendHTMLElement();
 };

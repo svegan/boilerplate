@@ -9,7 +9,6 @@ import svgSprite from 'gulp-svg-sprite';
 import webpack from 'webpack';
 import webpackStream from 'webpack-stream';
 import pug from 'gulp-pug';
-import uglify from 'gulp-uglify';
 import gulpIf from 'gulp-if';
 import rev from 'gulp-rev';
 import revReplace from 'gulp-rev-replace';
@@ -91,7 +90,7 @@ const compileJS = () =>
     .src('src/js/index.js')
     .pipe(plumber(plumberMessage('compileJS')))
     .pipe(webpackStream(webpackConfig, webpack))
-    .pipe(gulpIf(!isDevelopment, combine(uglify(), rev())))
+    .pipe(gulpIf(!isDevelopment, rev()))
     .pipe(gulp.dest('public/js/'))
     .pipe(
       gulpIf(
@@ -163,10 +162,10 @@ const copyAssets = () =>
     .pipe(gulp.dest('public'));
 
 const watch = (done) => {
-  gulp.watch('src/templates/pages/*.pug', compileTemplates);
+  gulp.watch('src/templates/**/*.pug', compileTemplates);
   gulp.watch(['src/styles/**/*.scss', 'tmp/styles/sprite.scss'], compileStyles);
   gulp.watch('src/js/**/*.js', compileJS);
-  gulp.watch('src/svg/**/*.svg', createSVGSprite);
+  gulp.watch('src/svg-sprite/**/*.svg', createSVGSprite);
   gulp.watch(imagesQuery, gulp.parallel(createWebpImages, copyImages));
   gulp.watch(assetsQuery, copyAssets);
   done();

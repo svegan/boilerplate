@@ -1,177 +1,209 @@
-@font-face {
-	font-family: 'OpenSansRegular';
-	src: url('#{$fontPath}OpenSans-Regular-webfont.eot');
-	src: url('#{$fontPath}OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
-		url('#{$fontPath}OpenSans-Regular-webfont.woff') format('woff'),
-		url('#{$fontPath}OpenSans-Regular-webfont.ttf') format('truetype'),
-		url('#{$fontPath}OpenSans-Regular-webfont.svg#open_sansregular') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'OpenSansBold';
-	src: url('#{$fontPath}OpenSans-Bold-webfont.eot');
-	src: url('#{$fontPath}OpenSans-Bold-webfont.eot?#iefix') format('embedded-opentype'),
-		url('#{$fontPath}OpenSans-Bold-webfont.woff') format('woff'),
-		url('#{$fontPath}OpenSans-Bold-webfont.ttf') format('truetype'),
-		url('#{$fontPath}OpenSans-Bold-webfont.svg#open_sansbold') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'BebasNeueRegular';
-	src: url('#{$fontPath}BebasNeueRegular.eot');
-	src: url('#{$fontPath}BebasNeueRegular.eot?#iefix') format('embedded-opentype'),
-		url('#{$fontPath}BebasNeueRegular.woff') format('woff'),
-		url('#{$fontPath}BebasNeueRegular.ttf') format('truetype'),
-		url('#{$fontPath}BebasNeueRegular.svg#open_sansregular') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'BebasNeueBold';
-	src: url('#{$fontPath}BebasNeueBold.eot');
-	src: url('#{$fontPath}BebasNeueBold.eot?#iefix') format('embedded-opentype'),
-		url('#{$fontPath}BebasNeueBold.woff') format('woff'),
-		url('#{$fontPath}BebasNeueBold.ttf') format('truetype'),
-		url('#{$fontPath}BebasNeueBold.svg#open_sansregular') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
+/*@font-face {
+  font-family: 'Arimo Regular';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Arimo Regular'), local('Arimo-Regular'),
+  url('#{$fontPath}arimo-v11-latin-regular.woff2') format('woff2'),
+  url('#{$fontPath}arimo-v11-latin-regular.woff') format('woff');
+}*/
 
 // ====================================
 // Text
-html{
-	font-size:$font-size-base;
-	line-height:$line-height-base;
-	font-family:$font-family-base;
-	color:$font-color-base;
+$ArimoReg: 'Arimo Regular', Arial, Helvetica, sans-serif;
+$font-size-base: 15px;
+$line-height-base: 26px;
+$general-font-family: $ArimoReg;
+$headings-font-family: $ArimoReg;
+$font-color-base: $black-color;
+$heading-font-color: $primary-color;
 
-  @include tabletsm {
-    font-size: $font-size-base * 0.8;
+html {
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  font-family: $general-font-family;
+  color: $black-color;
+
+  @include tablet {
+    //font-size: $font-size-base * 0.8;
   }
 
-  @include tabletlg {
-    font-size: $font-size-base * 0.9;
+  @include desktop {
+    //font-size: $font-size-base * 1;
   }
-
-	@include desktop {
-		font-size: $font-size-base * 1;
-	}
 }
 
-p{
-	margin-top: 0;
-	margin-bottom: 16px;
-	text-align: justify;
+p {
+  margin-top: 0;
+  margin-bottom: 10px;
 }
 
 // ====================================
 // Links
-a{
-	font-size:$link-font-size;
-	font-family:$heading-font-family;
-	color: $link-font-color;
-	text-decoration: underline;
+$link-font-color: $black-color;
 
-	&:hover{
-		text-decoration: none;
-		color: $font-color-base;
-	}
-	&:active,&.active{
-		font-weight: normal;
-		color: $link-font-color;
-	}
-	&:focus{
-		outline: 1px doted $link-font-color;
-	}
+a {
+  color: $link-font-color;
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+    color: $font-color-base;
+  }
+
+  &:active,
+  &.active {
+    font-weight: normal;
+    color: $link-font-color;
+  }
+
+  &:focus {
+    outline: 1px doted $link-font-color;
+  }
 }
 
 // ====================================
 // Heading
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  margin: 0;
+  font-weight: normal;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: $primary-color;
 
-h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{
+  strong {
+    font-family: $headings-font-family;
+    font-weight: normal;
+  }
 
-	margin:0;
-
-	font-weight:$heading-font-weight;
-	line-height: $heading-line-height;
-	font-family:$heading-font-family;
-	color:$heading-font-color;
-	text-transform: uppercase;
+  em {
+    color: $secondary-color;
+    font-style: normal;
+  }
 }
 
-h1,.h1{
-	margin-bottom: 10px;
-	font-size:$h1-font-size;
-	// line-height: $h1-line-height;
+h1,
+.h1 {
+  margin-bottom: 10px;
+
 }
-h2,.h2{
-	margin-bottom: 28px;
-	font-size:$h2-font-size;
-	// line-height: $h2-line-height;
+h2,
+.h2 {
+  margin-bottom: 22px;
+  font-size: 36px;
+  line-height: 38px;
+  text-transform: uppercase;
+
+  @include tablet {
+    margin-bottom: 15px;
+    line-height: 40px;
+  }
 }
-h3,.h3{
-	margin-bottom: 10px;
-	font-size:$h3-font-size;
-	// line-height: $h3-line-height;
+h3,
+.h3 {
+  margin-bottom: 1px;
+  font-size: 20px;
+  line-height: 24px;
 }
-h4,.h4{
-	margin-bottom: 0;
-	font-size:$h4-font-size;
-	// line-height: $h4-line-height;
+h4,
+.h4 {
+  margin-bottom: 1px;
+  font-size: 20px;
+  line-height: 24px;
 }
-.h5,.h6{
-	margin-bottom: 30px;
+.h5,
+.h6 {
+  margin-bottom: 30px;
+}
+
+// ====================================
+// Font-sizes
+ul {
+  @include reset-list();
+
+  li {
+    padding-left: 16px;
+    font-size: 18px;
+    line-height: 30px;
+    position: relative;
+
+    &:before {
+      content: '•';
+      color: $primary-color;
+      position: absolute;
+      top: 0px;
+      left: 1px;
+    }
+  }
 }
 
 // ====================================
 // Font-sizes
 
-.fz-13{
-	font-size:13px !important;
+.fz-13 {
+  font-size: 13px !important;
 }
 
-.fz-14{
-	font-size:14px !important;
+.fz-14 {
+  font-size: 14px !important;
 }
 
-.fz-15{
-	font-size:15px !important;
+.fz-15 {
+  font-size: 15px !important;
 }
 
-.fz-16{
-	font-size:16px !important;
+.fz-16 {
+  font-size: 16px !important;
 }
 
-.fz-17{
-	font-size:17px !important;
+.fz-17 {
+  font-size: 17px !important;
 }
 
-.fz-18{
-	font-size:18px !important;
+.fz-18 {
+  font-size: 18px !important;
 }
 
-.fz-20{
-	font-size:20px !important;
+.fz-20 {
+  font-size: 20px !important;
 }
 
-.fz-24{
-	font-size:24px !important;
+.fz-24 {
+  font-size: 24px !important;
 }
 
-.fz-64{
-	font-size:64px !important;
+.fz-64 {
+  font-size: 64px !important;
 }
 
 // ====================================
 // Font-aligns
-.ta-c{text-align: center;}
-.ta-l {text-align: left;}
-.ta-r {text-align: right;}
+.ta-c {
+  text-align: center;
+}
+.ta-l {
+  text-align: left;
+}
+.ta-r {
+  text-align: right;
+}
 
 // ====================================
 // Colors
+.primary-color {
+  color: $primary-color;
+}
+
+.primary-color {
+  color: $secondary-color;
+}

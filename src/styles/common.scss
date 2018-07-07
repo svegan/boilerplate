@@ -1,25 +1,16 @@
 // Sprite
 // @import 'sprite';
-// ============================================
+// =============================================
 // External
 @import "normalize/import-now";
-// ============================================
-// Variables
+// =============================================
+// Defaults
 @import "defaults/variables";
 @import "defaults/mixins";
-// ============================================
-// Modules
-// @import "modules/slider";
-// ============================================
-// Defaults
 @import 'defaults/_grid';
 @import "defaults/typography";
-// ============================================
+// =============================================
 // Layouts
-@import "layouts/chart";
-// ============================================
-// Pages
-// @import './pages/main-page';
-// ============================================
-// General
-// @import "general/temp";
+//@import "layouts/chart";
+// =============================================
+// Components

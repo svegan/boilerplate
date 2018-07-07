@@ -1,18 +1,6 @@
 // ============================================
 // Grid mixins
-@mixin phone {
-  @media (min-width: map-get($breakpoints, xs)) {
-    @content;
-  }
-}
-
-@mixin tabletsm {
-  @media (min-width: map-get($breakpoints, sm)) {
-    @content;
-  }
-}
-
-@mixin tabletlg {
+@mixin tablet {
   @media (min-width: map-get($breakpoints, md)) {
     @content;
   }
@@ -36,6 +24,54 @@
 	&:after {
 		clear: both;
 	}
+}
+// ============================================
+// Clear button
+@mixin clear-button() {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  cursor: pointer;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+
+  &::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
+}
+// ============================================
+// Reset list
+@mixin reset-list() {
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+}
+// ============================================
+// Object-fit
+@mixin object-fit($fit: fill, $position: null){
+  -o-object-fit: $fit;
+  object-fit: $fit;
+  @if $position {
+    -o-object-position: $position;
+    object-position: $position;
+    font-family: 'object-fit: #{$fit}; object-position: #{$position}';
+  } @else {
+    font-family: 'object-fit: #{$fit}';
+  }
 }
 // ============================================
 // Sizing

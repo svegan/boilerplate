@@ -1,3 +1,3 @@
-export * from './utils';
-export * from './svg';
-export * from './pie-chart';
+import addPolyfills from './polyfills';
+
+export { addPolyfills };
