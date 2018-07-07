@@ -6,6 +6,7 @@ import autoprefixer from 'gulp-autoprefixer';
 import imagemin from 'gulp-imagemin';
 import webp from 'gulp-webp';
 import svgSprite from 'gulp-svg-sprite';
+import stripDebug from 'gulp-strip-debug';
 import webpack from 'webpack';
 import webpackStream from 'webpack-stream';
 import pug from 'gulp-pug';
@@ -90,7 +91,7 @@ const compileJS = () =>
     .src('src/js/index.js')
     .pipe(plumber(plumberMessage('compileJS')))
     .pipe(webpackStream(webpackConfig, webpack))
-    .pipe(gulpIf(!isDevelopment, rev()))
+    .pipe(gulpIf(!isDevelopment, combine(stripDebug(), rev())))
     .pipe(gulp.dest('public/js/'))
     .pipe(
       gulpIf(
