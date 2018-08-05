@@ -63,3 +63,17 @@ export const capitalizeFirstLetter = (string) =>
 
 export const isMobile = () => document.documentElement.clientWidth <= 768;
 export const isTablet = () => document.documentElement.clientWidth <= 1024;
+
+export const preloadImage = (url) => new Promise((resolve, reject) => {
+  const image = new Image();
+  image.src = url;
+  image.onload = resolve;
+  image.onerror = reject;
+});
+
+export const removeElement = (el) => el.parentNode.removeChild(el);
+
+export const fireEvent = (el, eventName, detail = null, bubbles = true, cancelable = true) => {
+  const ev = new CustomEvent(eventName, {detail, bubbles, cancelable});
+  el.dispatchEvent(ev);
+};
