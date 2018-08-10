@@ -177,8 +177,9 @@ const syncBrowser = (done) => {
     server: {
       baseDir: './public'
     },
-    browser: 'google chrome'
+    open: false,
   });
+
   bs.watch('public/**/*.*').on('change', bs.reload);
   done();
 };
