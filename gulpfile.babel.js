@@ -26,7 +26,8 @@ import webpackConfig from './webpack.config.js';
 const bs = browserSync.create();
 const combine = combineS.obj;
 const isDevelopment = process.env.NODE_ENV !== 'production';
-const imagesDest = 'public/img/';
+const buildFolder = 'public';
+const imagesDest = `${buildFolder}/img`;
 const imagesQuery = 'src/assets/img/*.{jpg,png,svg}';
 const assetsQuery = ['src/assets/**/*.*', '!src/assets/img/**/*.*'];
 
@@ -43,13 +44,15 @@ const plumberMessage = (title) => ({
   }))
 });
 
-const clean = () => del(['public', 'manifest']);
+const clean = () => del(['manifest', `${buildFolder}/**`]);
 
 const compileTemplates = () =>
   gulp
     .src('src/templates/pages/*.pug')
-    .pipe(pug())
-    .pipe(gulp.dest('public'));
+    .pipe(pug(pug({
+      pretty: true,
+    })))
+    .pipe(gulp.dest(buildFolder));
 
 const compileStyles = () =>
   gulp
@@ -78,7 +81,7 @@ const compileStyles = () =>
         )
       )
     )
-    .pipe(gulp.dest('public/styles'))
+    .pipe(gulp.dest(`${buildFolder}/styles/`))
     .pipe(
       gulpIf(
         !isDevelopment,
@@ -92,7 +95,7 @@ const compileJS = () =>
     .pipe(plumber(plumberMessage('compileJS')))
     .pipe(webpackStream(webpackConfig, webpack))
     .pipe(gulpIf(!isDevelopment, combine(stripDebug(), rev())))
-    .pipe(gulp.dest('public/js/'))
+    .pipe(gulp.dest(`${buildFolder}/js/`))
     .pipe(
       gulpIf(
         !isDevelopment,
@@ -115,7 +118,7 @@ const createSVGSprite = () =>
         }
       })
     )
-    .pipe(gulp.dest('public/img/'));
+    .pipe(gulp.dest(imagesDest));
 
 const createWebpImages = () =>
   gulp
@@ -143,7 +146,7 @@ const copyAssets = () =>
   gulp
     .src(assetsQuery)
     .pipe(plumber(plumberMessage('copyAssets')))
-    .pipe(changed('public'))
+    .pipe(changed(buildFolder))
     .pipe(
       gulpIf(
         !isDevelopment,
@@ -160,10 +163,10 @@ const copyAssets = () =>
         })
       )
     )
-    .pipe(gulp.dest('public'));
+    .pipe(gulp.dest(buildFolder));
 
 const watch = (done) => {
-  gulp.watch('src/templates/**/*.pug', compileTemplates);
+  gulp.watch('src/templates/pages/*.pug', compileTemplates);
   gulp.watch(['src/styles/**/*.scss', 'tmp/styles/sprite.scss'], compileStyles);
   gulp.watch('src/js/**/*.js', compileJS);
   gulp.watch('src/svg-sprite/**/*.svg', createSVGSprite);
@@ -175,12 +178,12 @@ const watch = (done) => {
 const syncBrowser = (done) => {
   bs.init(null, {
     server: {
-      baseDir: './public'
+      baseDir: `./${buildFolder}`
     },
     open: false,
   });
 
-  bs.watch('public/**/*.*').on('change', bs.reload);
+  bs.watch(`${buildFolder}/**/*.*`, {ignored: '*.map'}).on('change', bs.reload);
   done();
 };
 
