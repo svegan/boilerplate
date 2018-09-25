@@ -1,9 +1,9 @@
-import path from 'path';
+const path = require('path');
 
 const mode =
   process.env.NODE_ENV !== 'production' ? 'development' : 'production';
 
-export default {
+module.exports = {
   output: {
     filename: 'common.js'
   },
