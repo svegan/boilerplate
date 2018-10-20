@@ -5,7 +5,8 @@ const mode =
 
 module.exports = {
   output: {
-    filename: 'common.js'
+    filename: 'common.js',
+    publicPath: '/js/',
   },
   mode,
   devtool: process.env.NODE_ENV !== 'production' ? 'source-map' : false,
@@ -14,20 +15,20 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel-loader'
+        loader: 'babel-loader',
       },
       {
         test: require.resolve('./src/js/modules/polyfills/svg4everybody'),
-        loader: 'imports-loader?this=>window'
-      }
-    ]
+        loader: 'imports-loader?this=>window',
+      },
+    ],
   },
   resolve: {
     extensions: ['.js', '.json'],
     alias: {
-      utils: path.resolve('src/js/modules/utils.js')
-    }
-  }
+      utils: path.resolve('src/js/modules/utils.js'),
+    },
+  },
   /* plugins: [
 		// Provides jQuery for other JS bundled with Webpack
 		new webpack.ProvidePlugin({

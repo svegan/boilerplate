@@ -38,9 +38,9 @@ const imageOptimPlugins = [
 ];
 
 const plumberMessage = (title) => ({
-  errorHandler: notify.onError((err) => ({
+  errorHandler: notify.onError(({ message }) => ({
     title,
-    message: err.message
+    message
   }))
 });
 
@@ -49,6 +49,7 @@ const clean = () => del(['manifest', `${buildFolder}/**`]);
 const compileTemplates = () =>
   gulp
     .src('src/templates/pages/*.pug')
+    .pipe(plumber(plumberMessage('compileTemplates')))
     .pipe(pug(pug({
       pretty: true,
     })))
@@ -181,6 +182,7 @@ const syncBrowser = (done) => {
       baseDir: `./${buildFolder}`
     },
     open: false,
+    notify: false,
   });
 
   bs.watch(`${buildFolder}/**/*.*`, {ignored: '*.map'}).on('change', bs.reload);

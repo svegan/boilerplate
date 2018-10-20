@@ -16,6 +16,7 @@ rules:
   no-console: 0
   new-cap: ["error", {"properties": false}]
   object-curly-spacing: 0
+  no-unused-expressions: 0
   spaced-comment: 0
 
 globals:
