@@ -11,8 +11,6 @@ import webpack from 'webpack';
 import webpackStream from 'webpack-stream';
 import pug from 'gulp-pug';
 import gulpIf from 'gulp-if';
-import rev from 'gulp-rev';
-import revReplace from 'gulp-rev-replace';
 import plumber from 'gulp-plumber';
 import changed from 'gulp-changed';
 import notify from 'gulp-notify';
@@ -44,7 +42,7 @@ const plumberMessage = (title) => ({
   }))
 });
 
-const clean = () => del(['manifest', `${buildFolder}/**`]);
+const clean = () => del([`${buildFolder}/**`]);
 
 const compileTemplates = () =>
   gulp
@@ -71,38 +69,19 @@ const compileStyles = () =>
         !isDevelopment,
         combine(
           autoprefixer({ browsers: ['last 2 versions'] }),
-          revReplace({
-            manifest: gulp.src('manifest/svg.json', { allowEmpty: true })
-          }),
-          revReplace({
-            manifest: gulp.src('manifest/images.json', { allowEmpty: true })
-          }),
           cssnano(),
-          rev()
         )
       )
     )
-    .pipe(gulp.dest(`${buildFolder}/styles/`))
-    .pipe(
-      gulpIf(
-        !isDevelopment,
-        combine(rev.manifest('css.json'), gulp.dest('manifest'))
-      )
-    );
+    .pipe(gulp.dest(`${buildFolder}/styles/`));
 
 const compileJS = () =>
   gulp
     .src('src/js/index.js')
     .pipe(plumber(plumberMessage('compileJS')))
     .pipe(webpackStream(webpackConfig, webpack))
-    .pipe(gulpIf(!isDevelopment, combine(stripDebug(), rev())))
-    .pipe(gulp.dest(`${buildFolder}/js/`))
-    .pipe(
-      gulpIf(
-        !isDevelopment,
-        combine(rev.manifest('js.json'), gulp.dest('manifest'))
-      )
-    );
+    .pipe(gulpIf(!isDevelopment, stripDebug()))
+    .pipe(gulp.dest(`${buildFolder}/js/`));
 
 const createSVGSprite = () =>
   gulp
@@ -111,7 +90,7 @@ const createSVGSprite = () =>
     .pipe(
       svgSprite({
         mode: {
-          stack: {
+          symbol: {
             dest: '.',
             sprite: 'sprite.svg',
             layout: 'vertical'
@@ -133,37 +112,14 @@ const copyImages = () => gulp
   .src(imagesQuery)
   .pipe(plumber(plumberMessage('copyImages')))
   .pipe(changed(imagesDest))
-  .pipe(gulpIf(!isDevelopment, rev()))
   .pipe(imagemin(imageOptimPlugins))
-  .pipe(gulp.dest(imagesDest))
-  .pipe(
-    gulpIf(
-      !isDevelopment,
-      combine(rev.manifest('images.json'), gulp.dest('manifest'))
-    )
-  );
+  .pipe(gulp.dest(imagesDest));
 
 const copyAssets = () =>
   gulp
     .src(assetsQuery)
     .pipe(plumber(plumberMessage('copyAssets')))
     .pipe(changed(buildFolder))
-    .pipe(
-      gulpIf(
-        !isDevelopment,
-        revReplace({
-          manifest: gulp.src('manifest/css.json', { allowEmpty: true })
-        })
-      )
-    )
-    .pipe(
-      gulpIf(
-        !isDevelopment,
-        revReplace({
-          manifest: gulp.src('manifest/js.json', { allowEmpty: true })
-        })
-      )
-    )
     .pipe(gulp.dest(buildFolder));
 
 const watch = (done) => {
